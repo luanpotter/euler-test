@@ -1,11 +1,14 @@
 package xyz.luan;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Main {
 
     private static final int S = 0, I = 1, R = 2;
-    private static final double beta = 0.5d, mu = 0.1d, gamma = 0.1d;
+    private static final double beta = 0.001d, mu = 0, gamma = 0.012d;
+    private static final Vector U0 = new Vector(120, 1, 0);
 
     private static final Fn[] FS;
 
@@ -20,15 +23,23 @@ public class Main {
     private double h;
 
     public static void main(String[] args) {
-        new Main().run();
+        new Main(0, 240, 0.25).run();
     }
 
-    public Main() {
-        this.h = 0.5;
+    public Main(double ti, double tf, double h) {
+        this.ti = ti;
+        this.tf = tf;
+        this.h = h;
     }
 
     public void run() {
-        // Vector u = U0;
+        List<Vector> us = new ArrayList<>();
+        us.add(U0);
+        for (double t = ti; t <= tf; t += h) {
+            us.add(next(t, us.get(us.size() - 1)));
+        }
+
+        System.out.println(us);
     }
 
     public Vector next(double t, Vector u) {

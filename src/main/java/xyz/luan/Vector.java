@@ -1,5 +1,7 @@
 package xyz.luan;
 
+import java.util.Arrays;
+
 import Jama.Matrix;
 
 class Vector extends Matrix {
@@ -14,14 +16,20 @@ class Vector extends Matrix {
     }
 
     public double get(int i) {
-        return get(i, 0);
+        return get(0, i);
     }
 
     public Vector plus(Vector v) {
         return new Vector(super.plus(v).getArray());
     }
 
+    @Override
     public Vector times(double t) {
         return new Vector(super.times(t).getArray());
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(getArray()[0]);
     }
 }

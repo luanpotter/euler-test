@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Main {
 
-    private static final int S = 0, I = 1, R = 2;
+    public static final int S = 0, I = 1, R = 2;
     private static final double beta = 0.001d, mu = 0, gamma = 0.012d;
     private static final Vector U0 = new Vector(120, 1, 0);
 
@@ -34,11 +34,16 @@ public class Main {
 
     public void run() {
         List<Vector> us = new ArrayList<>();
+        int i = 0;
+        double[] ts = new double[(int) Math.ceil((tf - ti) / h) + 2];
         us.add(U0);
         for (double t = ti; t <= tf; t += h) {
+            ts[i++] = t;
             us.add(next(t, us.get(us.size() - 1)));
         }
+        ts[i++] = tf;
 
+        Chart.plot(us, ts);
         System.out.println(us);
     }
 

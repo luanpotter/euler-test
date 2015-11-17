@@ -16,8 +16,8 @@ public class Chart extends ApplicationFrame {
 
     public Chart(String applicationTitle, String chartTitle, List<Vector> ys, double[] ts) {
         super(applicationTitle);
-        JFreeChart lineChart = ChartFactory.createLineChart(chartTitle, "t", "Estudantes", createDataset(ys, ts), PlotOrientation.VERTICAL, true, true,
-                false);
+        DefaultCategoryDataset ds = createDataset(ys, ts);
+        JFreeChart lineChart = ChartFactory.createLineChart(chartTitle, "t", "Estudantes", ds, PlotOrientation.VERTICAL, true, true, false);
 
         ChartPanel chartPanel = new ChartPanel(lineChart);
         chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
